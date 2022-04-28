@@ -2,17 +2,14 @@ import { useState } from "react";
 import axios from "axios";
 
 import "./styles.scss";
-import Loader from "./components/Loader";
 
 function App() {
   const [searchState, setSearchState] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [reposState, setReposState] = useState([]);
   const [errorState, setErrorState] = useState("");
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setErrorState("");
     setReposState([]);
     axios
@@ -27,9 +24,7 @@ function App() {
           setErrorState("Oops! Something went wrong.");
         }
       })
-      .finally(() => {
-        setIsLoading(false);
-      });
+
   };
   return (
     <div className="main">
@@ -48,11 +43,7 @@ function App() {
         {errorState && <div className="helper red">{errorState}</div>}
       </form>
 
-      {isLoading ? (
-        <div className="text-center">
-          <Loader />
-        </div>
-      ) : (
+       
         <>
           <div className="container-fluid px-0 mt-5">
             <div className="row gy-4">
@@ -97,7 +88,7 @@ function App() {
             </div>
           </div>
         </>
-      )}
+      
     </div>
   );
 }
